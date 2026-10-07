@@ -1,0 +1,19 @@
+# Données : jamais dans Git (4 Go + données de l'école)
+data/*
+!data/.gitkeep
+*.csv
+*.parquet
+*.duckdb
+
+# Secrets
+.env
+
+# Python / Jupyter
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.venv/
+
+# Système
+.DS_Store
+Thumbs.db

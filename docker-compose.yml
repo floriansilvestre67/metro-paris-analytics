@@ -1,0 +1,25 @@
+services:
+  jupyter:
+    build: .
+    container_name: metro-jupyter
+    ports:
+      - "127.0.0.1:8888:8888"
+    volumes:
+      - ./notebooks:/app/notebooks
+      - ./src:/app/src
+      - ./data:/app/data
+    env_file: .env
+    depends_on:
+      - db
+
+  db:
+    image: postgres:16
+    container_name: metro-db
+    env_file: .env
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:

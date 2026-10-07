@@ -1,0 +1,9 @@
+jupyterlab
+pandas
+pyarrow
+duckdb
+matplotlib
+seaborn
+sqlalchemy
+psycopg2-binary
+python-dotenv
