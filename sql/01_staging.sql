@@ -19,3 +19,10 @@ CREATE TABLE IF NOT EXISTS staging.stations_referentiel (
     commune_code_insee  TEXT,
     date_chargement     TIMESTAMP DEFAULT now()
 );
+
+CREATE TABLE IF NOT EXISTS staging.correspondance_noms (
+    nom_validations  TEXT,
+    nom_referentiel  TEXT,
+    commentaire      TEXT,
+    date_chargement  TIMESTAMP DEFAULT now()
+);
