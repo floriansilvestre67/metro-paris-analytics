@@ -2,7 +2,7 @@ CREATE TABLE IF NOT EXISTS staging.validations_brutes(
     id      BIGSERIAL PRIMARY KEY,
     time        TEXT,
     badge       TEXT,
-    sattion     TEXT,
+    station     TEXT,
     type        TEXT,
     date_chargement TIMESTAMP DEFAULT now() 
 );
