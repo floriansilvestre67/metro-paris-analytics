@@ -42,3 +42,10 @@ engine = create_engine(os.environ["DATABASE_URL"])
 - [ ] Reconstitution des trajets (entrée → sortie)
 - [ ] Analyses (fraude, trajets fréquents, prévisions 2026)
 - [ ] API REST et dashboards
+
+
+## Chargement des donnée staging 
+
+validation_brutes => 781sec pour 75839130 lignes
+station_referentiel => 0 sec pour 708 lignes 
+correspondance_noms => 0sec pour 5 lignes 
