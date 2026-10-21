@@ -26,3 +26,10 @@ CREATE TABLE IF NOT EXISTS staging.correspondance_noms (
     commentaire      TEXT,
     date_chargement  TIMESTAMP DEFAULT now()
 );
+
+CREATE TABLE IF NOT EXISTS staging.communes_retenues (
+    commune_code_insee  TEXT,
+    commune_nom         TEXT,
+    commentaire         TEXT,
+    date_chargement     TIMESTAMP DEFAULT now()
+);
