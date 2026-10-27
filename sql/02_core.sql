@@ -38,7 +38,7 @@ CREATE OR REPLACE FUNCTION core.normaliser_nom(nom TEXT)
 RETURNS TEXT AS $$
     SELECT trim(
         regexp_replace(
-            regexp_replace(lower(unaccent(nom)), '[-''’‘ʼ`´]', ' ', 'g'),
+            regexp_replace(lower(core.unaccent(nom)), '[-''’‘ʼ`´]', ' ', 'g'),
             '\s+', ' ', 'g'
         )
     )
@@ -83,7 +83,8 @@ GROUP BY core.normaliser_nom(libelle_station);
 INSERT INTO core.dim_station (nom, nom_normalise)
 SELECT MIN(v.station), core.normaliser_nom(COALESCE(c.nom_referentiel, v.station))
 FROM (SELECT DISTINCT station FROM staging.validations_brutes) AS v
-LEFT JOIN staging.correspondance_noms c ON c.nom_validations = v.station
+LEFT JOIN staging.correspondance_noms c
+       ON core.normaliser_nom(c.nom_validations) = core.normaliser_nom(v.station)
 WHERE core.normaliser_nom(COALESCE(c.nom_referentiel, v.station))
       NOT IN (SELECT nom_normalise FROM core.dim_station)
 GROUP BY 2;
@@ -104,7 +105,7 @@ CREATE TABLE IF NOT EXISTS core.station_ligne (
 TRUNCATE core.station_ligne;
 
 INSERT INTO core.station_ligne (id_station, id_ligne)
-SELECT s.station_id , l.id_ligne 
+SELECT  DISTINCT s.station_id , l.id_ligne 
 From staging.stations_referentiel AS r
 JOIN core.dim_station AS s ON s.nom_normalise = core.normaliser_nom(r.libelle_station)
 JOIN core.dim_ligne as l ON l.code_ligne = r.libelle_line 
@@ -120,7 +121,6 @@ FROM (
     GROUP BY id_station
 ) AS sl
 WHERE s.station_id = sl.id_station;
-
 
 
 
