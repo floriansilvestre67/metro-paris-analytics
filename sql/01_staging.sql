@@ -33,3 +33,22 @@ CREATE TABLE IF NOT EXISTS staging.communes_retenues (
     commentaire         TEXT,
     date_chargement     TIMESTAMP DEFAULT now()
 );
+
+-- Ajout des jours fériers et vacances 
+
+CREATE TABLE IF NOT EXISTS staging.vacances_scolaires (
+    date              TEXT,
+    vacances_zone_a   TEXT,
+    vacances_zone_b   TEXT,
+    vacances_zone_c   TEXT,
+    nom_vacances      TEXT,
+    date_chargement   TIMESTAMP DEFAULT now()
+);
+
+CREATE TABLE IF NOT EXISTS staging.jours_feries (
+    date              TEXT,
+    annee             TEXT,
+    zone              TEXT,
+    nom_jour_ferie    TEXT,
+    date_chargement   TIMESTAMP DEFAULT now()
+);

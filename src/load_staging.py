@@ -10,6 +10,9 @@ chemin_data_validation = "data/metro_paris_2020_2025.csv"
 chemin_data_stations = "data/metro-france.csv"
 chemin_data_correspondance = "data/correspondances.csv"
 chemin_data_communes = "data/communes_retenues.csv"
+chemin_data_jours_feries = "data/jours_feries_metropole.csv"
+chemin_data_vacances = "data/jours_vacances.csv"
+
 # Connexion à PostgreSQL : on passe par localhost car le script tourne sur ton PC
 conn = psycopg2.connect(
     host="localhost",
@@ -45,9 +48,13 @@ nom_colonne_stations_ref = ["id_line",'libelle_line', 'libelle_station', 'longit
                         'finish', 'commune_nom', 'commune_code_insee']
 nom_colonne_correspo_noms = ["nom_validations","nom_referentiel","commentaire"]
 nom_colonne_communes_retenues = ["commune_code_insee","commune_nom","commentaire"]
+nom_colonnes_jours_feries = ['date','annee','zone,nom_jour_ferie']
+nom_colonnes_vacances = ['date','vacances_zone_a','vacances_zone_b','vacances_zone_c','nom_vacances']
 #charger_csv(conn,"staging.validations_brutes", nom_colonne_valid_brut,chemin_csv)
 #charger_csv(conn, "staging.stations_referentiel",nom_colonne_stations_ref,chemin_data_stations)
 #charger_csv(conn,"staging.correspondance_noms", nom_colonne_correspo_noms,chemin_data_correspondance)
-charger_csv(conn,"staging.communes_retenues", nom_colonne_communes_retenues,chemin_data_communes)
+#charger_csv(conn,"staging.communes_retenues", nom_colonne_communes_retenues,chemin_data_communes)
+charger_csv(conn,"staging.vacances_scolaires", nom_colonnes_vacances,chemin_data_vacances)
+charger_csv(conn,"staging.jours_feries", nom_colonnes_jours_feries,chemin_data_jours_feries)
 
 conn.close()
